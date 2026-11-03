@@ -1,7 +1,9 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: linkding
+  namespace: linkding
 spec:
   replicas: 1
   selector:
@@ -13,9 +15,9 @@ spec:
         app: linkding
     spec:
       securityContext:
-        fsGroup: 33 # www-data group ID
-        runAsUser: 33 # www-data user ID
-        runAsGroup: 33 # www-data group ID
+        fsGroup: 33
+        runAsUser: 33
+        runAsGroup: 33
 
       containers:
         - name: linkding
@@ -27,9 +29,9 @@ spec:
                     - /bin/sh
                     - -c
                     - |
-                      "echo 'My additional command'"
-                      export LD_SUPERUSER_NAME=$(python3 -c "import json; print(json.load(open('/etc/linkding/creds/creds.json'))['name'])")
-                       export LD_SUPERUSER_PASSWORD=$(python3 -c "import json; print(json.load(open('/etc/linkding/creds/creds.json'))['pass'])")
+                        echo "Running additional command..."
+                        cat /etc/linkding/creds/creds.json
+                        echo "Exit code: $?" >> /tmp/poststart.log
           ports:
             - containerPort: 9090
 
@@ -38,14 +40,18 @@ spec:
 
           volumeMounts:
             - name: linkding-data
-              mountPath: /etc/linkding/datai
+              mountPath: /etc/linkding/data
+
             - name: creds
               mountPath: /etc/linkding/creds
               readOnly: true
+
       volumes:
         - name: linkding-data
           persistentVolumeClaim:
             claimName: linkding-data-pvc
+
         - name: creds
           secret:
-             secretName: linkding-credentials-secret
+            secretName: linkding-credentials-secret
+
