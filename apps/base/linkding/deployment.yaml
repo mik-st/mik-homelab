@@ -45,16 +45,10 @@ spec:
             - name: linkding-data
               mountPath: /etc/linkding/data
 
-            - name: creds
-              mountPath: /etc/linkding/creds
-              readOnly: true
 
       volumes:
         - name: linkding-data
           persistentVolumeClaim:
             claimName: linkding-data-pvc
 
-        - name: creds
-          secret:
-            secretName: linkding-credentials-secret
 
