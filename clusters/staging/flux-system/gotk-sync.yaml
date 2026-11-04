@@ -11,7 +11,7 @@ spec:
     branch: master
   secretRef:
     name: flux-system
-  url: ssh://git@github.com/mik-st/pi-cluster
+  url: ssh://git@github.com/mik-st/mik-homelab
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
