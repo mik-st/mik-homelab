@@ -36,5 +36,8 @@ spec:
 
         ingressClassName: traefik
         hosts:
-           - graf.kubeengineer.com
-
+           - grafana.kubeengineer.com
+        tls:
+          - secretName: grafana-tls-secret
+            hosts:
+              - grafana.kubeengineer.com
