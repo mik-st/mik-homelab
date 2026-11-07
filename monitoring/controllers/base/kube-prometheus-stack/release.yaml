@@ -31,13 +31,13 @@ spec:
   values:
     grafana:
       adminPassword: mik
-        #      ingress:
-        #        enabled: true
+              ingress:
+                enabled: true
 
-        #        ingressClassName: traefik
-        #        hosts:
-        #           - grafana.kubeengineer.com
-        #        tls:
-        #          - secretName: grafana-tls-secret
-        #            hosts:
-        #              - grafana.kubeengineer.com
+                ingressClassName: traefik
+                hosts:
+                   - grafana.kubeengineer.com
+                tls:
+                  - secretName: grafana-tls-secret
+                    hosts:
+                      - grafana.kubeengineer.com
